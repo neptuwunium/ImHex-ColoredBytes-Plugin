@@ -36,25 +36,22 @@ cmake_minimum_required(VERSION 3.20)
 set(CMAKE_MODULE_PATH ${CMAKE_SOURCE_DIR}/cmake)
 project(ImHexPlugin)
 
-# Include the ImHex SDK
-# For this to work, you need to set the IMHEX_SDK_PATH environment variable to the path of the ImHex SDK
-#
-# On Windows, the SDK is next to the ImHex executable
-# On Linux, the SDK is usually in /usr/share/imhex/sdk but this may vary depending on your distribution
-# On MacOS, the SDK is located inside of the ImHex.app bundle under ImHex.app/Contents/Resources/sdk
+if (USE_SYSTEM_FMT)
+    find_package(fmt 8.0.0 REQUIRED)
+endif()
+
+if (USE_SYSTEM_BOOST)
+    find_package(Boost REQUIRED CONFIG COMPONENTS regex)
+    add_library(boost::regex ALIAS Boost::regex)
+endif()
+
 include(ImHexSDK)
 
-# Register the plugin
-# This will configure everything you need to make your plugin work
-# Modify the arguments to your needs. Right now it defines a plugin called `example_plugin`
-# with a single source file called `example_plugin.cpp` in the `source` directory
-# By default you have access to the libimhex library to interact with ImHex
-# as well as libwolv, libromfs, libfmt and ImGui, but you can link against any libraries you want
 add_imhex_plugin(
     NAME
-        example_plugin
+        coloredbytes
     SOURCES
-        source/example_plugin.cpp
+        source/colored-bytes.cpp
     INCLUDES
         include
 )

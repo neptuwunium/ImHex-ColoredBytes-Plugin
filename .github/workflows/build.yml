@@ -15,7 +15,9 @@ jobs:
           submodules: recursive
       - name: Install SDK
         id: install_sdk
-        uses: WerWolv/imhex-download-sdk@v1.32.2
+        uses: WerWolv/imhex-download-sdk@v1.38.1
+        with:
+          imhex_version: '1.38.1'
       - name: Build
         run: |
           mkdir build
@@ -45,7 +47,9 @@ jobs:
           submodules: recursive
       - name: Install SDK
         id: install_sdk
-        uses: WerWolv/imhex-download-sdk@v1.32.2
+        uses: WerWolv/imhex-download-sdk@v1.38.1
+        with:
+          imhex_version: '1.18.1'
       - name: Build
         run: |
           mkdir build
