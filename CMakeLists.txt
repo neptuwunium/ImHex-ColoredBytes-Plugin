@@ -36,6 +36,7 @@ cmake_minimum_required(VERSION 3.20)
 set(CMAKE_MODULE_PATH ${CMAKE_SOURCE_DIR}/cmake)
 project(ImHexPlugin)
 
+# needed if imhex is built with either of these two switches.
 if (USE_SYSTEM_FMT)
     find_package(fmt 8.0.0 REQUIRED)
 endif()
@@ -45,6 +46,12 @@ if (USE_SYSTEM_BOOST)
     add_library(boost::regex ALIAS Boost::regex)
 endif()
 
+# Include the ImHex SDK
+# For this to work, you need to set the IMHEX_SDK_PATH environment variable to the path of the ImHex SDK
+#
+# On Windows, the SDK is next to the ImHex executable
+# On Linux, the SDK is usually in /usr/share/imhex/sdk but this may vary depending on your distribution
+# On MacOS, the SDK is located inside of the ImHex.app bundle under ImHex.app/Contents/Resources/sdk
 include(ImHexSDK)
 
 add_imhex_plugin(
